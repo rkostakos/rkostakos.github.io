@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert Kostakos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Courier New", Courier, monospace;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1, h2, p, ul, li, a {
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        a {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9em;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dvd {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background-image: url('dvd_logo.png'); /* Replace with your image path */
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 1;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.3s; /* Smooth transition for visibility toggle */
+        }
+
+        .dvd.visible {
+            opacity: 1; /* Make visible */
+        }
+
+        .toggle-btn {
+            background-color: #333;
+            color: #e0e0e0;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.8em;
+            border-radius: 5px;
+            z-index: 3;
+            margin-left: 10px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Robert Kostakos</h1>
+    <p>IT Professional | CS Graduate</p>
+
+    <h2>About Me</h2>
+    <p>
+        Lorem ipsum odor amet, consectetuer adipiscing elit. Ligula purus augue phasellus turpis nostra. Nam hendrerit molestie per eget ligula venenatis. Sodales proin suscipit bibendum maximus molestie volutpat. Nibh lobortis sapien justo, viverra semper etiam lacus. Tellus dolor maximus lectus quisque mattis. Aliquam nunc facilisi laoreet phasellus facilisi ornare nam adipiscing. Est quisque libero nostra commodo luctus nunc fermentum felis id. Hac fames dignissim odio malesuada proin cras libero interdum. Dui tellus rutrum donec vitae metus porttitor platea phasellus.
+    </p>
+
+    <h2>Skills</h2>
+    <ul>
+        <li>Skill 1</li>
+        <li>Skill 2</li>
+        <li>Skill 3</li>
+        <!-- Add more skills as needed -->
+    </ul>
+
+    <h2>Experience</h2>
+    <p>
+        Sociosqu neque parturient nec justo; tristique consequat facilisis. Platea sed elementum, phasellus metus non convallis class. Orci ipsum tincidunt massa egestas platea. Fermentum taciti sem nec ante penatibus ornare vestibulum. Non efficitur ligula luctus sollicitudin odio eget. Parturient maecenas egestas est maecenas cursus tristique. Primis non class adipiscing neque ligula aliquam ad.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+        Reach me at <a href="mailto:your.email@example.com">your.email@example.com</a> or on 
+        <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>.
+    </p>
+</div>
+
+<footer class="container">
+    &copy; 2024 Your Name. All rights reserved.
+    <button class="toggle-btn" id="toggleDvd">Click me!</button>
+</footer>
+
+<div class="dvd"></div>
+
+<script>
+    const dvd = document.querySelector('.dvd');
+    const toggleBtn = document.getElementById('toggleDvd');
+    let dvdVisible = false; // Initially hidden
+
+    let posX = Math.random() * (window.innerWidth - dvd.clientWidth);
+    let posY = Math.random() * (window.innerHeight - dvd.clientHeight);
+    let velX = 2; // Adjust the speed as needed
+    let velY = 2;
+
+    function moveDvd() {
+        if (!dvdVisible) return;
+
+        // Update position
+        posX += velX;
+        posY += velY;
+
+        // Check boundaries and adjust velocity to prevent overflow
+        if (posX <= 0) {
+            velX = Math.abs(velX);
+        } else if (posX >= window.innerWidth - dvd.clientWidth) {
+            velX = -Math.abs(velX);
+        }
+
+        if (posY <= 0) {
+            velY = Math.abs(velY);
+        } else if (posY >= window.innerHeight - dvd.clientHeight) {
+            velY = -Math.abs(velY);
+        }
+
+        // Set position
+        dvd.style.left = posX + 'px';
+        dvd.style.top = posY + 'px';
+
+        requestAnimationFrame(moveDvd);
+    }
+
+    window.addEventListener('resize', () => {
+        if (!dvdVisible) return;
+        
+        // Adjust position to stay within the resized window
+        posX = Math.min(posX, window.innerWidth - dvd.clientWidth);
+        posY = Math.min(posY, window.innerHeight - dvd.clientHeight);
+    });
+
+    toggleBtn.addEventListener('click', () => {
+        dvdVisible = !dvdVisible;
+        if (dvdVisible) {
+            dvd.classList.add('visible');
+            toggleBtn.textContent = 'Stop that!';
+            moveDvd();
+        } else {
+            dvd.classList.remove('visible');
+            toggleBtn.textContent = 'Click me!';
+        }
+    });
+
+    // Initialize the DVD position within visible bounds
+    window.addEventListener('load', () => {
+        posX = Math.min(posX, window.innerWidth - dvd.clientWidth);
+        posY = Math.min(posY, window.innerHeight - dvd.clientHeight);
+    });
+</script>
+
+</body>
+</html>
+
