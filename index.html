@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robert Kostakos</title>
+    <title>Robert's page</title>
     <style>
         body {
             margin: 0;
@@ -11,7 +11,6 @@
             font-family: "Courier New", Courier, monospace;
             background-color: #121212;
             color: #e0e0e0;
-            overflow: hidden; /* Prevent scrollbars */
             position: relative;
         }
 
@@ -54,7 +53,7 @@
             position: absolute;
             width: 300px;
             height: 200px;
-            background-image: url('dvd_logo.png'); /* Replace with your image path */
+            background-image: url('dvd_logo.png');
             background-size: contain;
             background-repeat: no-repeat;
             z-index: 1;
@@ -100,7 +99,7 @@
         <li>Skill 1</li>
         <li>Skill 2</li>
         <li>Skill 3</li>
-        <!-- Add more skills as needed -->
+        <!-- etc -->
     </ul>
 
     <h2>Experience</h2>
@@ -110,13 +109,13 @@
 
     <h2>Contact</h2>
     <p>
-        Reach me at <a href="mailto:your.email@example.com">your.email@example.com</a> or on 
-        <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>.
+        Reach me at <a href="mailto:email@example.com">email@example.com</a> or on 
+        <a href="https://www.linkedin.com/in/rkostakos" target="_blank">LinkedIn</a>.
     </p>
 </div>
 
 <footer class="container">
-    &copy; 2024 Your Name. All rights reserved.
+    &copy; 2024 Robert Kostakos
     <button class="toggle-btn" id="toggleDvd">Click me!</button>
 </footer>
 
@@ -162,7 +161,7 @@
     window.addEventListener('resize', () => {
         if (!dvdVisible) return;
         
-        // Adjust position to stay within the resized window
+        // Adjust position to stay within the resized window. This thing doesn't like when you scroll
         posX = Math.min(posX, window.innerWidth - dvd.clientWidth);
         posY = Math.min(posY, window.innerHeight - dvd.clientHeight);
     });
